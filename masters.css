@@ -1,0 +1,432 @@
+/* =============================================
+   masters.css — Custom Stylesheet for IS201
+   Rory McIlroy 2026 Masters at Augusta
+   ============================================= */
+
+/* --- CSS Variables (Color Palette) --- */
+:root {
+  --green-dark:    #1a3a2a;
+  --green-mid:     #2d5c3f;
+  --green-light:   #4a8c5c;
+  --gold:          #c9a84c;
+  --gold-light:    #e8c96e;
+  --white:         #f5f0e8;
+  --white-pure:    #ffffff;
+  --text-body:     #e8e0d0;
+  --text-muted:    #a09070;
+  --shadow:        rgba(0, 0, 0, 0.45);
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* STYLE 1: Body — background color, font family, font color */
+body {
+  background-color: var(--green-dark);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  color: var(--text-body);
+  line-height: 1.75;
+  font-size: 1.1rem;
+}
+
+/* --- Navigation --- */
+/* STYLE 2: Top nav bar styling */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #0f2219;
+  border-bottom: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 2.5rem;
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.nav-brand {
+  color: var(--gold);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.nav-links a {
+  color: var(--white);
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--gold-light);
+}
+
+/* --- Hero Section --- */
+/* STYLE 3: Hero — large background image with overlay */
+.hero {
+  position: relative;
+  min-height: 92vh;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Augusta_National_Golf_Club_%28aerial%29.jpg/1280px-Augusta_National_Golf_Club_%28aerial%29.jpg');
+  background-size: cover;
+  background-position: center top;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 25, 15, 0.55) 0%,
+    rgba(10, 25, 15, 0.75) 60%,
+    var(--green-dark) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+}
+
+.hero-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--gold-light);
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+/* STYLE 4: Display heading — Playfair Display, gold color, large size */
+.hero-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  font-weight: 900;
+  color: var(--white-pure);
+  line-height: 1;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.7);
+  margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-style: italic;
+  color: var(--gold-light);
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.05em;
+}
+
+.hero-btn {
+  display: inline-block;
+  background: transparent;
+  border: 2px solid var(--gold);
+  color: var(--gold-light);
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.75rem 2.5rem;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.hero-btn:hover {
+  background: var(--gold);
+  color: var(--green-dark);
+}
+
+/* --- Sections --- */
+.section {
+  padding: 5rem 1.5rem;
+}
+
+.alt-section {
+  background-color: #142b1e;
+}
+
+/* --- Div Cards (content blocks) --- */
+/* STYLE 5: Card div — bordered content containers */
+.div-card {
+  max-width: 700px;
+  margin: 0 auto 3rem auto;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-top: 3px solid var(--gold);
+  padding: 2.5rem 2.5rem;
+  border-radius: 2px;
+}
+
+.wide-card {
+  max-width: 960px;
+}
+
+.center-card {
+  text-align: center;
+}
+
+/* STYLE 6: Section titles — Playfair, gold underline */
+.section-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(201,168,76,0.35);
+}
+
+.section-text {
+  color: var(--text-body);
+  margin-bottom: 1.25rem;
+  font-size: 1.1rem;
+}
+
+.center-text {
+  text-align: center;
+}
+
+/* --- Blockquote / Pull Quote --- */
+.pullquote {
+  border-left: 4px solid var(--gold);
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--white);
+  background: rgba(201,168,76,0.07);
+}
+
+.pullquote cite {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--gold);
+  font-style: normal;
+  letter-spacing: 0.08em;
+}
+
+/* --- Lists --- */
+/* STYLE 7: Nested list styling */
+.main-list {
+  margin: 1.5rem 0 1.5rem 1.5rem;
+  color: var(--text-body);
+}
+
+.main-list > li {
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+}
+
+.sub-list {
+  margin: 0.6rem 0 0 1.5rem;
+  list-style-type: disc;
+  color: var(--text-body);
+}
+
+.sub-list li {
+  margin-bottom: 0.35rem;
+  font-size: 1rem;
+}
+
+/* --- Rounds Grid --- */
+.rounds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.round-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 2px;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.round-label {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+
+.round-score {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--white-pure);
+  margin-bottom: 0.5rem;
+}
+
+.round-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* --- Video --- */
+/* STYLE 8: YouTube iframe responsive wrapper */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 2rem auto;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 2px solid rgba(201,168,76,0.3);
+}
+
+.video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.video-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 0.75rem;
+}
+
+/* --- Tableau --- */
+.tableau-wrapper {
+  margin: 2rem 0;
+  width: 100%;
+  min-height: 520px;
+  border: 1px solid rgba(201,168,76,0.2);
+  background: rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+
+.tableau-note {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid var(--gold);
+  background: rgba(201,168,76,0.06);
+}
+
+.tableau-note a {
+  color: var(--gold-light);
+}
+
+/* --- Bio Section --- */
+.bio-card {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.bio-text {
+  flex: 1;
+  min-width: 260px;
+}
+
+.bio-img-wrap {
+  flex: 0 0 220px;
+  text-align: center;
+}
+
+/* STYLE 9: Image styling */
+.bio-img {
+  width: 100%;
+  max-width: 220px;
+  border: 3px solid var(--gold);
+  display: block;
+  margin: 0 auto;
+  filter: sepia(15%) contrast(1.05);
+}
+
+.img-caption {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* --- Anchor Link --- */
+.anchor-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: var(--gold);
+  text-decoration: none;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 2px;
+  transition: color 0.2s ease;
+}
+
+.anchor-link:hover {
+  color: var(--gold-light);
+}
+
+/* --- Footer --- */
+/* STYLE 10: Footer styling */
+.site-footer {
+  background: #0a1810;
+  border-top: 2px solid var(--gold);
+  padding: 2rem 2.5rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.site-footer a {
+  color: var(--gold-light);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+  .topnav {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+  }
+  .nav-links a {
+    margin-left: 0.6rem;
+    font-size: 0.75rem;
+  }
+  .div-card {
+    padding: 1.5rem 1.25rem;
+  }
+  .bio-card {
+    flex-direction: column;
+  }
+  .hero-title {
+    font-size: 3rem;
+  }
+}

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Masters Trivia Challenge</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --green-dark:  #0f2318;
+      --green-mid:   #1a3a28;
+      --green-card:  #162e20;
+      --gold:        #c9a84c;
+      --gold-light:  #e8c96e;
+      --gold-dim:    #a07830;
+      --white:       #f5f0e8;
+      --correct:     #2e7d4f;
+      --correct-bg:  #1a3d28;
+      --wrong:       #8b2020;
+      --wrong-bg:    #3d1a1a;
+      --neutral-bg:  rgba(255,255,255,0.06);
+      --border:      rgba(201,168,76,0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--green-dark);
+      font-family: 'Source Sans 3', sans-serif;
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 4rem;
+      background-image:
+        radial-gradient(ellipse at 20% 10%, rgba(26,58,40,0.8) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 90%, rgba(26,58,40,0.6) 0%, transparent 50%);
+    }
+
+    /* ── Header ── */
+    .site-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      animation: fadeDown 0.6s ease both;
+    }
+
+    .header-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .header-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 0.4rem;
+    }
+
+    .header-title span {
+      color: var(--gold);
+    }
+
+    .header-sub {
+      font-size: 0.9rem;
+      color: rgba(245,240,232,0.55);
+    }
+
+    /* ── Score Bar ── */
+    .score-bar {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-bottom: 2rem;
+      animation: fadeDown 0.6s 0.1s ease both;
+    }
+
+    .score-item {
+      text-align: center;
+    }
+
+    .score-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .score-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(245,240,232,0.5);
+      margin-top: 0.2rem;
+    }
+
+    /* ── Progress Bar ── */
+    .progress-wrap {
+      width: 100%;
+      max-width: 680px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 99px;
+      height: 5px;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+      border-radius: 99px;
+      transition: width 0.4s ease;
+    }
+
+    /* ── Question Card ── */
+    .question-card {
+      background: var(--green-card);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--gold);
+      border-radius: 6px;
+      padding: 2.25rem 2.5rem;
+      max-width: 680px;
+      width: 100%;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .question-num {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .question-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 3vw, 1.35rem);
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--white);
+      margin-bottom: 1.75rem;
+    }
+
+    /* ── Answer Buttons ── */
+    .answers-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+
+    @media (max-width: 500px) {
+      .answers-grid { grid-template-columns: 1fr; }
+      .question-card { padding: 1.5rem 1.25rem; }
+    }
+
+    .answer-btn {
+      background: var(--neutral-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--white);
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.9rem 1.1rem;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+      line-height: 1.4;
+    }
+
+    .answer-btn:hover:not(:disabled) {
+      background: rgba(201,168,76,0.12);
+      border-color: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    .answer-btn.correct {
+      background: var(--correct-bg);
+      border-color: var(--correct);
+      color: #7fffb2;
+    }
+
+    .answer-btn.wrong {
+      background: var(--wrong-bg);
+      border-color: var(--wrong);
+      color: #ffaaaa;
+    }
+
+    .answer-btn:disabled { cursor: default; }
+
+    /* ── Feedback ── */
+    .feedback {
+      max-width: 680px;
+      width: 100%;
+      padding: 1rem 1.4rem;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      display: none;
+      animation: fadeUp 0.25s ease both;
+    }
+
+    .feedback.correct {
+      background: var(--correct-bg);
+      border: 1px solid var(--correct);
+      color: #7fffb2;
+      display: block;
+    }
+
+    .feedback.wrong {
+      background: var(--wrong-bg);
+      border: 1px solid var(--wrong);
+      color: #ffcccc;
+      display: block;
+    }
+
+    /* ── Next Button ── */
+    .next-btn {
+      display: none;
+      max-width: 680px;
+      width: 100%;
+      padding: 1rem;
+      background: var(--gold);
+      color: #1a1a1a;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .next-btn:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+    }
+
+    .next-btn.visible { display: block; }
+
+    /* ── Results Screen ── */
+    .results-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .results-screen.visible { display: flex; }
+
+    .results-trophy {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .results-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .results-score {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--white);
+      margin: 0.75rem 0;
+    }
+
+    .results-msg {
+      font-size: 1rem;
+      color: rgba(245,240,232,0.7);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+      max-width: 420px;
+    }
+
+    .restart-btn {
+      padding: 1rem 2.5rem;
+      background: var(--gold);
+      color: #1a1a1a;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      margin-bottom: 1rem;
+    }
+
+    .restart-btn:hover { background: var(--gold-light); }
+
+    .back-home-btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border: 1px solid var(--border);
+      color: rgba(245,240,232,0.7);
+      font-size: 0.9rem;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .back-home-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <p class="header-label">Augusta National · 2026</p>
+    <h1 class="header-title">Masters <span>Trivia</span></h1>
+    <p class="header-sub">10 questions · How well do you know The Masters?</p>
+  </header>
+
+  <!-- Score Bar -->
+  <div class="score-bar">
+    <div class="score-item">
+      <div class="score-num" id="scoreCorrect">0</div>
+      <div class="score-label">Correct</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num" id="scoreQuestion">1</div>
+      <div class="score-label">Question</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num" id="scoreTotal">10</div>
+      <div class="score-label">Total</div>
+    </div>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="progress-wrap">
+    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+  </div>
+
+  <!-- Question Card -->
+  <div class="question-card" id="questionCard">
+    <p class="question-num" id="questionNum">Question 1 of 10</p>
+    <p class="question-text" id="questionText"></p>
+    <div class="answers-grid" id="answersGrid"></div>
+  </div>
+
+  <!-- Feedback -->
+  <div class="feedback" id="feedback"></div>
+
+  <!-- Next Button -->
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
+
+  <!-- Results Screen -->
+  <div class="results-screen" id="resultsScreen">
+    <div class="results-trophy" id="resultsTrophy">🏆</div>
+    <h2 class="results-title" id="resultsTitle">Round Complete!</h2>
+    <div class="results-score" id="resultsScore"></div>
+    <p class="results-msg" id="resultsMsg"></p>
+    <button class="restart-btn" onclick="restartGame()">Play Again</button><br/>
+    <!-- ============================================================
+         👇 REPLACE "YOUR-RESUME-FILENAME.html" WITH YOUR ACTUAL
+            RESUME PAGE FILENAME (e.g. professional.html)
+         ============================================================ -->
+    <a href="YOUR-RESUME-FILENAME.html" class="back-home-btn">← Back to Resume</a>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "Who won the 2026 Masters Tournament?",
+        answers: ["Scottie Scheffler", "Rory McIlroy", "Justin Rose", "Cameron Young"],
+        correct: 1,
+        fact: "Rory McIlroy won the 2026 Masters, finishing 12-under par with a final round 71."
+      },
+      {
+        q: "What was Rory McIlroy's final score (under par) at the 2026 Masters?",
+        answers: ["10-under", "11-under", "12-under", "14-under"],
+        correct: 2,
+        fact: "McIlroy finished at 12-under par, winning by one stroke."
+      },
+      {
+        q: "By winning the 2026 Masters, Rory McIlroy became only the fourth player to win back-to-back Masters titles. Who was the most recent player before him to do it?",
+        answers: ["Jack Nicklaus", "Nick Faldo", "Tiger Woods", "Arnold Palmer"],
+        correct: 2,
+        fact: "Tiger Woods won back-to-back in 2001 and 2002 — the last to do it before McIlroy."
+      },
+      {
+        q: "How many strokes ahead was Rory McIlroy after 36 holes (the halfway point) at the 2026 Masters?",
+        answers: ["3 strokes", "4 strokes", "5 strokes", "6 strokes"],
+        correct: 3,
+        fact: "McIlroy held a historic six-stroke lead at the halfway point — a tournament record."
+      },
+      {
+        q: "Who was McIlroy's playing partner in the final round of the 2026 Masters?",
+        answers: ["Scottie Scheffler", "Justin Rose", "Cameron Young", "Sam Burns"],
+        correct: 2,
+        fact: "Cameron Young was paired with McIlroy in the final round and briefly took the lead."
+      },
+      {
+        q: "What was the total prize purse for the 2026 Masters Tournament?",
+        answers: ["$18 million", "$20 million", "$22.5 million", "$25 million"],
+        correct: 2,
+        fact: "The 2026 Masters purse was $22.5 million, up $1.5 million from the previous year."
+      },
+      {
+        q: "How much did the 2026 Masters winner take home?",
+        answers: ["$3.6 million", "$4.5 million", "$5 million", "$2.43 million"],
+        correct: 1,
+        fact: "The winner's share was $4.5 million — the largest payout in Masters history at that time."
+      },
+      {
+        q: "Which hole at Augusta is famously known as part of 'Amen Corner'?",
+        answers: ["Hole 10", "Hole 12", "Hole 15", "Hole 18"],
+        correct: 1,
+        fact: "Hole 12 (Golden Bell) is the most famous part of Amen Corner — a short par-3 over Rae's Creek."
+      },
+      {
+        q: "How many major championships did Rory McIlroy have after winning the 2026 Masters?",
+        answers: ["4", "5", "6", "7"],
+        correct: 2,
+        fact: "The 2026 Masters gave McIlroy his 6th major, tying him with Lee Trevino, Nick Faldo, and Phil Mickelson."
+      },
+      {
+        q: "Where is Augusta National Golf Club located?",
+        answers: ["Augusta, Georgia", "Augusta, South Carolina", "Savannah, Georgia", "Charlotte, North Carolina"],
+        correct: 0,
+        fact: "Augusta National Golf Club is located in Augusta, Georgia and has hosted The Masters since 1934."
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+
+    function loadQuestion() {
+      const q = questions[currentQ];
+      answered = false;
+
+      document.getElementById('questionNum').textContent = `Question ${currentQ + 1} of ${questions.length}`;
+      document.getElementById('questionText').textContent = q.q;
+      document.getElementById('scoreQuestion').textContent = currentQ + 1;
+      document.getElementById('progressFill').style.width = `${(currentQ / questions.length) * 100}%`;
+
+      const feedback = document.getElementById('feedback');
+      feedback.className = 'feedback';
+      feedback.textContent = '';
+
+      document.getElementById('nextBtn').classList.remove('visible');
+
+      const grid = document.getElementById('answersGrid');
+      grid.innerHTML = '';
+      q.answers.forEach((ans, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'answer-btn';
+        btn.textContent = ans;
+        btn.onclick = () => selectAnswer(i);
+        grid.appendChild(btn);
+      });
+
+      // Re-animate card
+      const card = document.getElementById('questionCard');
+      card.style.animation = 'none';
+      card.offsetHeight; // reflow
+      card.style.animation = 'fadeUp 0.35s ease both';
+    }
+
+    function selectAnswer(index) {
+      if (answered) return;
+      answered = true;
+
+      const q = questions[currentQ];
+      const btns = document.querySelectorAll('.answer-btn');
+      const feedback = document.getElementById('feedback');
+
+      btns.forEach(b => b.disabled = true);
+
+      if (index === q.correct) {
+        score++;
+        btns[index].classList.add('correct');
+        feedback.className = 'feedback correct';
+        feedback.textContent = `✓ Correct! ${q.fact}`;
+        document.getElementById('scoreCorrect').textContent = score;
+      } else {
+        btns[index].classList.add('wrong');
+        btns[q.correct].classList.add('correct');
+        feedback.className = 'feedback wrong';
+        feedback.textContent = `✗ Not quite. ${q.fact}`;
+      }
+
+      document.getElementById('nextBtn').classList.add('visible');
+      document.getElementById('nextBtn').textContent =
+        currentQ + 1 < questions.length ? 'Next Question →' : 'See Results →';
+    }
+
+    function nextQuestion() {
+      currentQ++;
+      if (currentQ < questions.length) {
+        loadQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      document.getElementById('questionCard').style.display = 'none';
+      document.getElementById('feedback').style.display = 'none';
+      document.getElementById('nextBtn').style.display = 'none';
+      document.getElementById('scoreQuestion').textContent = questions.length;
+      document.getElementById('progressFill').style.width = '100%';
+
+      const pct = Math.round((score / questions.length) * 100);
+      let trophy, title, msg;
+
+      if (pct === 100) {
+        trophy = '🏆'; title = 'Green Jacket Winner!';
+        msg = "A perfect score — you know The Masters inside and out. Rory would be proud.";
+      } else if (pct >= 70) {
+        trophy = '⛳'; title = 'Solid Round!';
+        msg = "You know your Masters history well. A few more practice rounds and you'll be contending.";
+      } else if (pct >= 40) {
+        trophy = '🏌️'; title = 'Making the Cut';
+        msg = "Not bad, but Augusta has more secrets to reveal. Brush up on your Masters history!";
+      } else {
+        trophy = '🌿'; title = 'Back to the Driving Range';
+        msg = "Augusta humbles everyone. Study up and try again — the Green Jacket awaits.";
+      }
+
+      document.getElementById('resultsTrophy').textContent = trophy;
+      document.getElementById('resultsTitle').textContent = title;
+      document.getElementById('resultsScore').textContent = `${score} / ${questions.length}`;
+      document.getElementById('resultsMsg').textContent = msg;
+      document.getElementById('resultsScreen').classList.add('visible');
+    }
+
+    function restartGame() {
+      currentQ = 0;
+      score = 0;
+      answered = false;
+      document.getElementById('scoreCorrect').textContent = 0;
+      document.getElementById('questionCard').style.display = '';
+      document.getElementById('feedback').style.display = '';
+      document.getElementById('nextBtn').style.display = '';
+      document.getElementById('resultsScreen').classList.remove('visible');
+      loadQuestion();
+    }
+
+    // Start
+    loadQuestion();
+  </script>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Colton Green – Resume</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --navy:      #1b2a4a;
+      --navy-mid:  #243660;
+      --gold:      #c9973a;
+      --light-bg:  #f4f6fa;
+      --border:    #d8dde8;
+      --text-dark: #1e2332;
+      --text-muted:#6c757d;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text-dark);
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      background-color: var(--navy);
+      color: #fff;
+      min-height: 100vh;
+      padding: 2.5rem 1.75rem;
+      position: sticky;
+      top: 0;
+    }
+
+    .sidebar-name {
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 1.65rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .sidebar-title {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin-bottom: 1.75rem;
+      font-weight: 600;
+    }
+
+    .sidebar-divider {
+      border-color: rgba(255,255,255,0.15);
+      margin: 1.25rem 0;
+    }
+
+    .sidebar-section-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      margin-bottom: 0.6rem;
+      color: rgba(255,255,255,0.85);
+      word-break: break-all;
+    }
+
+    .contact-item i {
+      color: var(--gold);
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .contact-item a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+    }
+
+    .contact-item a:hover {
+      color: var(--gold);
+    }
+
+    .skill-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.9);
+      font-size: 0.78rem;
+      padding: 0.3rem 0.65rem;
+      border-radius: 3px;
+      margin: 0.2rem 0.2rem 0.2rem 0;
+      line-height: 1.4;
+    }
+
+    /* ── Main Content ── */
+    .main-content {
+      padding: 2.75rem 2.5rem;
+      max-width: 800px;
+    }
+
+    /* Section headers */
+    .section-heading {
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Summary */
+    .summary-text {
+      font-size: 0.97rem;
+      line-height: 1.8;
+      color: #3a3f52;
+      border-left: 4px solid var(--gold);
+      padding-left: 1.1rem;
+      background: #fff;
+      border-radius: 0 4px 4px 0;
+      padding: 1rem 1rem 1rem 1.25rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    /* Experience Cards */
+    .exp-card {
+      background: #fff;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--navy);
+      padding: 1.4rem 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .exp-role {
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.1rem;
+    }
+
+    .exp-org {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 0.15rem;
+    }
+
+    .exp-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .exp-meta i {
+      margin-right: 0.25rem;
+    }
+
+    .exp-card ul {
+      padding-left: 1.2rem;
+      margin: 0;
+    }
+
+    .exp-card ul li {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: #3a3f52;
+      margin-bottom: 0.4rem;
+    }
+
+    /* Education Card */
+    .edu-card {
+      background: #fff;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      padding: 1.2rem 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .edu-icon {
+      font-size: 2rem;
+      color: var(--navy);
+      flex-shrink: 0;
+    }
+
+    .edu-degree {
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.1rem;
+    }
+
+    .edu-school {
+      font-size: 0.87rem;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 0.1rem;
+    }
+
+    .edu-location {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Masters Button */
+    .masters-btn {
+      display: block;
+      width: 100%;
+      margin-top: 1.5rem;
+      padding: 0.85rem 1rem;
+      background-color: var(--gold);
+      color: #1a1a1a;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .masters-btn:hover {
+      background-color: #e0ad50;
+      color: #1a1a1a;
+      transform: translateY(-1px);
+    }
+
+    /* Responsive */
+    @media (max-width: 767px) {
+      .sidebar {
+        min-height: auto;
+        position: relative;
+      }
+      .main-content {
+        padding: 2rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid p-0">
+  <div class="row g-0">
+
+    <!-- ── SIDEBAR ── -->
+    <div class="col-12 col-md-4 col-lg-3 sidebar">
+
+      <!-- Name & Title -->
+      <p class="sidebar-name">Colton<br>Green</p>
+      <p class="sidebar-title">Sales &amp; Operations Professional</p>
+
+      <!-- Contact -->
+      <p class="sidebar-section-label">Contact</p>
+      <div class="contact-item">
+        <i class="bi bi-geo-alt-fill"></i>
+        <span>Provo, Utah</span>
+      </div>
+      <div class="contact-item">
+        <i class="bi bi-telephone-fill"></i>
+        <span>719-493-4938</span>
+      </div>
+      <div class="contact-item">
+        <i class="bi bi-envelope-fill"></i>
+        <a href="mailto:colton.green29@icloud.com">colton.green29@icloud.com</a>
+      </div>
+      <div class="contact-item">
+        <i class="bi bi-linkedin"></i>
+        <a href="https://www.linkedin.com/in/colton-green-3b9b61382" target="_blank">colton-green-3b9b61382</a>
+      </div>
+
+      <hr class="sidebar-divider"/>
+
+      <!-- Skills -->
+      <p class="sidebar-section-label">Key Skills</p>
+      <div>
+        <span class="skill-badge">Client Relations</span>
+        <span class="skill-badge">Consultative Selling</span>
+        <span class="skill-badge">CRM Software</span>
+        <span class="skill-badge">Microsoft Excel</span>
+        <span class="skill-badge">Microsoft Outlook</span>
+        <span class="skill-badge">Prospecting</span>
+        <span class="skill-badge">Lead Qualification</span>
+        <span class="skill-badge">Operational Coordination</span>
+        <span class="skill-badge">Resource Management</span>
+        <span class="skill-badge">Problem Solving</span>
+        <span class="skill-badge">Critical Thinking</span>
+        <span class="skill-badge">Bilingual: English &amp; Spanish</span>
+      </div>
+
+      <hr class="sidebar-divider"/>
+
+      <!-- Languages -->
+      <p class="sidebar-section-label">Languages</p>
+      <div class="contact-item"><i class="bi bi-translate"></i><span>English — Native</span></div>
+      <div class="contact-item"><i class="bi bi-translate"></i><span>Spanish — Fluent</span></div>
+
+      <hr class="sidebar-divider"/>
+
+      <!-- ============================================================
+           👇 REPLACE "YOUR-MASTERS-FILENAME.html" WITH YOUR ACTUAL
+              MASTERS PAGE FILENAME (e.g. masters.html or index.html)
+           ============================================================ -->
+      <a href="masters.html" class="masters-btn">
+        <i class="bi bi-flag-fill me-2"></i>View My Masters Project
+      </a>
+    </div>
+
+    <!-- ── MAIN CONTENT ── -->
+    <div class="col-12 col-md-8 col-lg-9">
+      <div class="main-content">
+
+        <!-- Professional Summary -->
+        <section class="mb-4">
+          <h2 class="section-heading">Professional Summary</h2>
+          <p class="summary-text">
+            Motivated Sales Professional with experience in real estate analysis, client relationship management, and team leadership. Skilled in prospecting, workflow coordination, and consultative communication. Proven ability to build trust, manage large teams, and optimize operations in fast-paced environments.
+          </p>
+        </section>
+
+        <!-- Professional Experience -->
+        <section class="mb-4">
+          <h2 class="section-heading">Professional Experience</h2>
+
+          <!-- Job 1 -->
+          <div class="exp-card">
+            <p class="exp-role">Real Estate Analyst Intern</p>
+            <p class="exp-org">All Pro Capital</p>
+            <p class="exp-meta">
+              <i class="bi bi-geo-alt"></i>Colorado Springs, CO &nbsp;|&nbsp;
+              <i class="bi bi-calendar3"></i>May 2023 – Aug 2023
+            </p>
+            <ul>
+              <li>Assisted in evaluating potential investment and lending opportunities by conducting financial and market analysis.</li>
+              <li>Supported accounting and reporting functions, gaining experience in Excel modeling and data review.</li>
+              <li>Collaborated with senior analysts to assess deal structures and identify risks and opportunities.</li>
+              <li>Managed six projects over the course of 3 months, overseeing their progress and coordinating logistics to ensure smooth execution.</li>
+            </ul>
+          </div>
+
+          <!-- Job 2 -->
+          <div class="exp-card">
+            <p class="exp-role">Missionary &amp; District Leader</p>
+            <p class="exp-org">The Church of Jesus Christ of Latter-Day Saints</p>
+            <p class="exp-meta">
+              <i class="bi bi-geo-alt"></i>Tijuana, Mexico &nbsp;|&nbsp;
+              <i class="bi bi-calendar3"></i>Aug 2023 – Aug 2025
+            </p>
+            <ul>
+              <li>Built strong relationships with hundreds of individuals through effective communication, cultural adaptability, and active listening.</li>
+              <li>Managed operations for 120 missionaries, coordinating travel, housing, transportation, and overall well-being.</li>
+              <li>Developed leadership, organizational, and mentoring skills by training and supporting peers in achieving performance goals.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Education -->
+        <section class="mb-4">
+          <h2 class="section-heading">Education</h2>
+          <div class="edu-card">
+            <i class="bi bi-mortarboard-fill edu-icon"></i>
+            <div>
+              <p class="edu-degree">High School Diploma</p>
+              <p class="edu-school">Liberty High School</p>
+              <p class="edu-location"><i class="bi bi-geo-alt me-1"></i>Colorado Springs, CO</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Footer note -->
+        <p class="text-muted mt-4" style="font-size:0.78rem;">
+          Created for IS201 Final Web Development Project &middot; Brigham Young University &middot; 2026
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
